@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace TD.InputSystem{
     public class ScInputManager : MonoBehaviour {
@@ -17,6 +18,13 @@ namespace TD.InputSystem{
         
         public InputEvent OnInteractEvent;
         public bool IsInteracting;
+
+        
+        public InputEvent OnEscapeEvent;
+        public bool IsEscaping;
+        
+        public bool IsCameraLocked;
+
         
         private void Awake() {
             if (Instance == null) {
@@ -38,6 +46,10 @@ namespace TD.InputSystem{
             ViewValue = ctx.ReadValue<Vector2>();
             InvokeInputEvent(ctx, OnViewEvent);
         }
+        
+        public void OnEscape(InputAction.CallbackContext ctx) {
+            InvokeInputEvent(ctx, OnEscapeEvent);
+        }
 
         private void InvokeInputEvent(InputAction.CallbackContext ctx, InputEvent inputEvent) {
             if (ctx.started) {
@@ -48,9 +60,6 @@ namespace TD.InputSystem{
                 inputEvent.Canceled?.Invoke();
             }
         }
-        
-
-        
         
         [Serializable]
         public struct InputEvent {

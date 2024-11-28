@@ -16,11 +16,12 @@ namespace TD.Player {
         }
         
         private void Update() {
-            if (_inputManager.IsMoving) {
+
+            if (_inputManager.IsMoving && !_inputManager.IsCameraLocked) {
                 Move();
             }
 
-            if (_inputManager.IsViewing) {
+            if (_inputManager.IsViewing && !_inputManager.IsCameraLocked) {
                 View();
             }
         }

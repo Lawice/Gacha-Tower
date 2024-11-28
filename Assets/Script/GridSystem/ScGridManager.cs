@@ -1,6 +1,9 @@
+
+using TD.InputSystem;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+
 
 namespace TD.GridSystem {
     public class ScGridManager : MonoBehaviour {
@@ -12,6 +15,8 @@ namespace TD.GridSystem {
 
         public Vector2Int GridSize;
         private ScGridCursor _cursor;
+        public ScGridTile SelectedTile; 
+
         
         private void Awake() {
             if (Instance == null) {
@@ -69,10 +74,19 @@ namespace TD.GridSystem {
         }
 
         public ScGridTile GetTile(int x, int y) {
-            if (x < 0 || y < 0 ||x >=GridSize.x || y >= GridSize.y) return null;
+
+            if (OutOfBounds(new Vector2Int(x,y))) return null;
             return _grid[x, y];
         }
 
+        public bool OutOfBounds(Vector2Int position) => position.x < 0 || position.y < 0 || position.x >= GridSize.x || position.y >= GridSize.y;
+
+        public void ToggleCursorLock(bool lockCursor) {
+            ScInputManager.Instance.IsCameraLocked = !lockCursor;
+            Cursor.lockState = lockCursor? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !lockCursor;
+            _cursor.gameObject.SetActive(lockCursor);
+        }
     }
 }
 

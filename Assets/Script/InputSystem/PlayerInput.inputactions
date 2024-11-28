@@ -13,6 +13,7 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+
                 },
                 {
                     "name": "View",
@@ -27,6 +28,16 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "e608d29d-4213-4fc6-b870-763a096876bf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "76113094-8dc9-4a50-b3f2-bb743e893659",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -110,6 +121,7 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+
                 },
                 {
                     "name": "",
@@ -130,6 +142,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a54f97c-b3e9-4290-a08d-e93a121c4aa7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
