@@ -19,11 +19,12 @@ namespace TD.Tower {
         public void Attack();
         public void Evolve(int amount = 1);
         public void Upgrade(int levelAmount = 1);
-        
-        public void SetPosition(Vector2Int position) => Position = position;
-        public void SetRarity(Rarity rarity) => Rarity = rarity;
-        public void SetLevel(int level) => Level = level;
 
-
+        public void InitTower(Vector2Int position, Rarity rarity, int level, int range) {
+            Position = position;
+            Rarity = rarity;
+            Level = level;
+            Range = range;
+        }
     }
 }

@@ -29,7 +29,6 @@ namespace TD.Tower {
             if(Level + levelAmount > MaxLevel) Level = MaxLevel;
             Level += levelAmount;
         }
- c7b8b10 (Artemis V1)
         public void Evolve() {
             
         }

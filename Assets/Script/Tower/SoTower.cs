@@ -9,6 +9,8 @@ namespace TD.Tower {
         [field:SerializeField]public string Description { get; set; }
         [field:SerializeField]public Sprite Icon { get; set; }
         [field:SerializeField]public GameObject Prefab { get; set; }
-        [field:SerializeField]public int Cost { get; set; }
+        [field:SerializeField]public int BaseCost { get; set; }
+        [field:SerializeField]public int Range { get; set; }
+        
     }
 }

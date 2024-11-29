@@ -17,6 +17,9 @@ namespace TD.InputSystem {
             
             _inputManager.OnInteractEvent.Performed.AddListener(OnInteractStart);
             _inputManager.OnInteractEvent.Canceled.AddListener(OnInteractStop);
+            
+            _inputManager.OnEscapeEvent.Performed.AddListener(OnEscapeStart);
+            _inputManager.OnEscapeEvent.Canceled.AddListener(OnEscapeStop);
         }
         
         
@@ -28,5 +31,8 @@ namespace TD.InputSystem {
         
         void OnInteractStart() => _inputManager.IsInteracting = true;
         void OnInteractStop() => _inputManager.IsInteracting = false;
+        
+        void OnEscapeStart() => _inputManager.IsEscaping = true;
+        void OnEscapeStop() => _inputManager.IsEscaping = false;
     }
 }

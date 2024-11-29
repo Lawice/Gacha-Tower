@@ -1,3 +1,4 @@
+﻿using System;
 using TD.InputSystem;
 using TD.Player;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace TD.GridSystem {
         public bool IsTowerPlaced;
         Color _startColor;
         private MeshRenderer _renderer;
+        ScGridManager _gridManager => ScGridManager.Instance;
         
         private void Start() {
             TilePosition = new Vector2Int((int)(transform.localPosition.x), (int)(transform.localPosition.z));
@@ -21,16 +23,19 @@ namespace TD.GridSystem {
 
         }
 
+        private void Update() {
+            if (ScInputManager.Instance.IsEscaping && _gridManager.SelectedTile == this) {
+                CloseTowerSelection();
+            }
+        }
+
         public void OpenTowerSelection() {
-            ScGridManager.Instance.ToggleCursorLock(false);
             _renderer.material.color = Color.black;
             ScTowerInventory.Instance.ShowCards();
         }
         
         public void CloseTowerSelection() {
-            ScGridManager.Instance.ToggleCursorLock(true);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
             ScTowerInventory.Instance.HideCards();
             _renderer.material.color = _startColor;
         }
@@ -42,15 +47,14 @@ namespace TD.GridSystem {
         
         public void PlaceTower(TowerItem tower) {
             Debug.Log("Placing tower: " + tower.Tower.Name);
-            GameObject newTower = Instantiate(tower.Tower.Prefab, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+            GameObject newTower = Instantiate(tower.Tower.Prefab, new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), Quaternion.identity);
             newTower.transform.parent = transform;
             newTower.transform.localScale = Vector3.one;
-            ITower towerComponent = newTower.GetComponent<ITower>();
-            SetTower(towerComponent);
-            towerComponent.SetLevel(tower.Level);
-            towerComponent.SetRarity(tower.Rarity);
-            towerComponent.SetPosition(TilePosition);
+            ITower towerComp = newTower.GetComponent<ITower>();
+            SetTower(towerComp);
+            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level, tower.Tower.Range);
             CloseTowerSelection();
+            _gridManager.ClearPreview();
         }
         
         

@@ -32,12 +32,18 @@ namespace TD.GridSystem {
 
         private void Update() {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (_gridPlane.Raycast(ray, out float hit)) {
-                Vector3 hitPoint = ray.GetPoint(hit);
-                hitPoint.x = RoundToNearest(hitPoint.x, _gridManager.TileSize);
-                hitPoint.z = RoundToNearest(hitPoint.z, _gridManager.TileSize);
-                transform.position = new Vector3(hitPoint.x +_gridManager.TileSize/2f, hitPoint.y +_gridManager.TileSize/2f +0.05f, hitPoint.z +_gridManager.TileSize/2f);
-                CursorPosition = new Vector2Int((int)hitPoint.x/_gridManager.TileSize, (int)hitPoint.z/_gridManager.TileSize);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f)) {
+                ScGridTile tile = hit.collider.GetComponent<ScGridTile>();
+                if (tile != null) {
+                    CursorPosition = tile.TilePosition;
+                    transform.position = new Vector3(CursorPosition.x+_gridManager.TileSize/2f, transform.position.y, CursorPosition.y+_gridManager.TileSize/2f);
+                } else {
+                    CursorPosition = new Vector2Int(-1, -1);
+                }
+            } else {
+                CursorPosition = new Vector2Int(-1, -1);
             }
 
 

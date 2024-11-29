@@ -17,4 +17,5 @@ MonoBehaviour:
   <Description>k__BackingField: "Tire des Fl\xE8ches, smash"
   <Icon>k__BackingField: {fileID: 0}
   <Prefab>k__BackingField: {fileID: 728812955778559473, guid: 76f1810fdf69008449364b56a5c69793, type: 3}
-  <Cost>k__BackingField: 120
+  <BaseCost>k__BackingField: 120
+  <Range>k__BackingField: 40

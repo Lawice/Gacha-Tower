@@ -2,6 +2,7 @@
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using TD.GridSystem;
+using TD.InputSystem;
 using static TD.Tools.ScEnums;
 using TD.Tower;
 using TMPro;
@@ -11,6 +12,8 @@ namespace TD.Player {
         public static ScTowerInventory Instance { get; private set; }
         public SerializedDictionary<TowerItem, int> Towers = new();
 
+        ScGridManager _gridManager => ScGridManager.Instance;
+        
         public int Money = 300;
         
         public GameObject CardPrefab;
@@ -36,8 +39,9 @@ namespace TD.Player {
 
         public void ShowCards() {
             _moneyText.text = "Money : " + Money;
+            _gridManager.ToggleCursorLock(false);
             if (Towers.Count == 0) {
-                ScGridManager.Instance.SelectedTile.CloseTowerSelection();
+                _gridManager.SelectedTile.CloseTowerSelection();
                 return;
             }
             CardContainer.SetActive(true);
@@ -45,6 +49,7 @@ namespace TD.Player {
         }
         
         public void HideCards() {
+            _gridManager.ToggleCursorLock(true);
             _moneyText.text = "Money : " + Money;
             CardContainer.SetActive(false);
         }

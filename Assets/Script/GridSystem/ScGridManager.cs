@@ -1,4 +1,3 @@
-
 using TD.InputSystem;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -15,7 +14,10 @@ namespace TD.GridSystem {
 
         public Vector2Int GridSize;
         private ScGridCursor _cursor;
-        public ScGridTile SelectedTile; 
+        public ScGridTile SelectedTile;
+        
+        [SerializeField] GameObject _previewTowerRange;
+        private GameObject _previewTower;
 
         
         private void Awake() {
@@ -53,8 +55,6 @@ namespace TD.GridSystem {
             foreach (ScGridTile tile in tiles) {
                 _grid[tile.TilePosition.x, tile.TilePosition.y] = tile;
             }
-            
-
         }
         
         public Vector2Int GetCursorPosition() => _cursor.CursorPosition;
@@ -86,6 +86,24 @@ namespace TD.GridSystem {
             Cursor.lockState = lockCursor? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !lockCursor;
             _cursor.gameObject.SetActive(lockCursor);
+        }
+        
+        public void SetPreview(Vector2Int position, int range) {
+            if (_previewTower == null) {
+                _previewTower = Instantiate(_previewTowerRange);
+            }
+            else {
+                Debug.Log(_previewTower);
+            }
+            _previewTower.SetActive(true);
+            _previewTower.transform.position = new Vector3(position.x + 0.5f, 0.5f, position.y + 0.5f);
+            _previewTower.transform.localScale = new Vector3((range+0.5f)*2, 0.1f, (range+0.5f)*2);
+        }
+        
+        public void ClearPreview() {
+            if (_previewTower != null) {
+                _previewTower.SetActive(false);
+            }
         }
     }
 }
