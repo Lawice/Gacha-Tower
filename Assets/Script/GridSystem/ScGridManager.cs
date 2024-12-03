@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TD.InputSystem;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace TD.GridSystem {
         [SerializeField] GameObject _previewTowerRange;
         private GameObject _previewTower;
 
+        List<ScGridTile> _pathTiles = new(); //ScGridTile
+        
         
         private void Awake() {
             if (Instance == null) {
