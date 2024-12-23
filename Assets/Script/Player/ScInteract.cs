@@ -9,9 +9,7 @@ namespace TD.Player {
         ScInputManager _inputManager => ScInputManager.Instance;
         
         private void Update() {
-
             if (_inputManager.IsInteracting && !_inputManager.IsCameraLocked) {
-
                 TryInteractObject(_gridManager.GetCursorPosition());
             }
         }

@@ -8,8 +8,8 @@ using TD.Tower;
 using TMPro;
 
 namespace TD.Player {
-    public class ScTowerInventory : MonoBehaviour {
-        public static ScTowerInventory Instance { get; private set; }
+    public class ScTowerManager : MonoBehaviour {
+        public static ScTowerManager Instance { get; private set; }
         public SerializedDictionary<TowerItem, int> Towers = new();
 
         ScGridManager _gridManager => ScGridManager.Instance;

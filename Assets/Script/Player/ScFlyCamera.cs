@@ -7,8 +7,8 @@ namespace TD.Player {
         
         [SerializeField] private float _speed;
         [SerializeField] private float _viewSensibility;
-        float yRota = 0;
-        float xRota = 0;
+        float _yRota;
+        float _xRota;
         
         private void Start() {
             Cursor.lockState = CursorLockMode.Locked;
@@ -33,11 +33,11 @@ namespace TD.Player {
         }
 
         void View() {
-            yRota += _inputManager.ViewValue.x * Time.deltaTime * _viewSensibility;
-            xRota -= _inputManager.ViewValue.y * Time.deltaTime * _viewSensibility;
-            xRota = Mathf.Clamp(xRota, -90, 90);
+            _yRota += _inputManager.ViewValue.x * Time.deltaTime * _viewSensibility;
+            _xRota -= _inputManager.ViewValue.y * Time.deltaTime * _viewSensibility;
+            _xRota = Mathf.Clamp(_xRota, -90, 90);
             
-            transform.rotation = Quaternion.Euler(new Vector3(xRota, yRota, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(_xRota, _yRota, 0));
         }
     }
 }

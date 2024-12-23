@@ -31,12 +31,12 @@ namespace TD.GridSystem {
 
         public void OpenTowerSelection() {
             _renderer.material.color = Color.black;
-            ScTowerInventory.Instance.ShowCards();
+            ScTowerManager.Instance.ShowCards();
         }
         
         public void CloseTowerSelection() {
 
-            ScTowerInventory.Instance.HideCards();
+            ScTowerManager.Instance.HideCards();
             _renderer.material.color = _startColor;
         }
         

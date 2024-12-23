@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace TD.InputSystem{
     public class ScInputManager : MonoBehaviour {
@@ -32,6 +31,7 @@ namespace TD.InputSystem{
             } else {
                 Destroy(this);
             }
+            DontDestroyOnLoad(transform.root);
         }
 
         public void OnMove(InputAction.CallbackContext ctx) {
