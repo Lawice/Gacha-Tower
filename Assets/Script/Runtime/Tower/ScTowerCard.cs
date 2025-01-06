@@ -1,12 +1,12 @@
-﻿using TD.GridSystem;
+﻿using TD.Runtime.GridSystem;
 using TD.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
-using static TD.Tools.ScEnums;
+using static TD.Runtime.Tools.ScEnums;
 
-namespace TD.Tower {
+namespace TD.Runtime.Tower {
     public class ScTowerCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         ScTowerManager _towerManager => ScTowerManager.Instance;
         ScGridManager _gridManager => ScGridManager.Instance;

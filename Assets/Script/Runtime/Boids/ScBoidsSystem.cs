@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace TD.Boids {
+namespace TD.RuntimeBoids {
     public class ScBoidsSystem : MonoBehaviour {
         public Transform BoidPrefab;
         public Transform Attractor;

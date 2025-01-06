@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using static TD.Tools.ScEnums;
+using static TD.Runtime.Tools.ScEnums;
 
-namespace TD.Tower {
+namespace TD.Runtime.Tower {
     public interface ITower {
         public Vector2Int Position { get; set; }
         

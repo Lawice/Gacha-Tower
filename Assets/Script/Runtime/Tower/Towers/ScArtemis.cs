@@ -1,7 +1,7 @@
-﻿using TD.Tools;
+﻿using TD.Runtime.Tools;
 using UnityEngine;
 
-namespace TD.Tower {
+namespace TD.Runtime.Tower {
     public class ScArtemis: MonoBehaviour, ITower {
         [field:SerializeField] public Vector2Int Position { get; set; }
         [field: SerializeField] public int Range { get; set; } = 40;
@@ -14,7 +14,7 @@ namespace TD.Tower {
 
         
         public void Attack() {
-            
+
         }
 
 

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace TD.InputSystem{
+namespace TD.Runtime.InputSystem{
     public class ScInputManager : MonoBehaviour {
         public static ScInputManager Instance { get; private set; }
         

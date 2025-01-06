@@ -1,13 +1,11 @@
-﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
-using TD.GridSystem;
-using TD.InputSystem;
-using static TD.Tools.ScEnums;
-using TD.Tower;
+using TD.Runtime.GridSystem;
+using static TD.Runtime.Tools.ScEnums;
 using TMPro;
 
-namespace TD.Player {
+namespace TD.Runtime.Tower {
     public class ScTowerManager : MonoBehaviour {
         public static ScTowerManager Instance { get; private set; }
         public SerializedDictionary<TowerItem, int> Towers = new();
@@ -64,12 +62,11 @@ namespace TD.Player {
         }
 
         private void AddCards() {
-            foreach (var tower in Towers) {
-                if (tower.Value > 0) {
-                    var card = Instantiate(CardPrefab, CardParent);
-                    ScTowerCard cardComponent = card.GetComponent<ScTowerCard>();
-                    cardComponent.SetTower(tower.Key, tower.Value);
-                }
+            foreach (KeyValuePair<TowerItem, int> tower in Towers) {
+                if (tower.Value <= 0) continue;
+                GameObject card = Instantiate(CardPrefab, CardParent);
+                ScTowerCard cardComponent = card.GetComponent<ScTowerCard>();
+                cardComponent.SetTower(tower.Key, tower.Value);
             }
         }
 

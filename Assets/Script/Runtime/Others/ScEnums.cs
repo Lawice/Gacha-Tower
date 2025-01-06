@@ -1,4 +1,4 @@
-﻿namespace TD.Tools {
+﻿namespace TD.Runtime.Tools {
     public static class ScEnums {
         public enum Rarity {
             Common,

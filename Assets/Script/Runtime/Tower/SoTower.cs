@@ -1,7 +1,7 @@
 using UnityEngine;
-using static TD.Tools.ScEnums;
+using static TD.Runtime.Tools.ScEnums;
 
-namespace TD.Tower {
+namespace TD.Runtime.Tower {
     [CreateAssetMenu(fileName = "Tower", menuName = "Scriptable Objects/Tower", order = 0)]
     public class SoTower : ScriptableObject, IPlaceableTower {
         [field:SerializeField]public string Name { get; set; }

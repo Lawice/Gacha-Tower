@@ -1,7 +1,7 @@
-using TD.InputSystem;
+using TD.Runtime.InputSystem;
 using UnityEngine;
 
-namespace TD.Player {
+namespace TD.Runtime.Player {
     public class ScFlyCamera : MonoBehaviour {
         ScInputManager _inputManager => ScInputManager.Instance;
         

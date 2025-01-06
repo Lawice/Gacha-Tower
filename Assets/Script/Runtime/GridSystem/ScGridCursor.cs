@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using static TD.Tools.ScTools;
+using static TD.Runtime.Tools.ScTools;
 
-namespace TD.GridSystem {
+namespace TD.Runtime.GridSystem {
     public class ScGridCursor : MonoBehaviour {
         public static ScGridCursor Instance;
         private Camera _camera;

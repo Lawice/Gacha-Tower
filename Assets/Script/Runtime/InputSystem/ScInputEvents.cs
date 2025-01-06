@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace TD.InputSystem {
+namespace TD.Runtime.InputSystem {
     public class ScInputEvents : MonoBehaviour {
         ScInputManager _inputManager => ScInputManager.Instance;
         void Start() {

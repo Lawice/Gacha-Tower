@@ -1,4 +1,4 @@
-﻿namespace Script.Player {
+﻿namespace TD.Runtime.Player {
     public class ScPlayerAction {
         
     }
