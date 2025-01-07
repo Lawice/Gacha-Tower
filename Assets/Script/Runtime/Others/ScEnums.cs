@@ -5,7 +5,7 @@
             Rare,
             Epic,
             Legendary,
-            Heroic,
+            Heroic
         }
         
         public enum TowerType {

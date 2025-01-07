@@ -8,7 +8,7 @@ using TMPro;
 namespace TD.Runtime.Tower {
     public class ScTowerManager : MonoBehaviour {
         public static ScTowerManager Instance { get; private set; }
-        public SerializedDictionary<TowerItem, int> Towers = new();
+        public SerializedDictionary<StTowerCard, int> Towers = new();
 
         ScGridManager _gridManager => ScGridManager.Instance;
         
@@ -31,8 +31,8 @@ namespace TD.Runtime.Tower {
         }
 
         private void Start() {
-            _moneyText.text = "Money : " + Money;
-            CardContainer.SetActive(false);
+            /*_moneyText.text = "Money : " + Money;*/
+            /*CardContainer.SetActive(false);*/
         }
 
         public void ShowCards() {
@@ -53,7 +53,7 @@ namespace TD.Runtime.Tower {
         }
         
         public void AddTower(SoTower tower, Rarity rarity, int level) {
-            Towers.Add(new TowerItem { Tower = tower, Rarity = rarity, Level = level }, 1);
+            Towers.Add(new StTowerCard { Tower = tower, Rarity = rarity, Level = level }, 1);
         }
 
         public void UpdateCards() {
@@ -62,7 +62,7 @@ namespace TD.Runtime.Tower {
         }
 
         private void AddCards() {
-            foreach (KeyValuePair<TowerItem, int> tower in Towers) {
+            foreach (KeyValuePair<StTowerCard, int> tower in Towers) {
                 if (tower.Value <= 0) continue;
                 GameObject card = Instantiate(CardPrefab, CardParent);
                 ScTowerCard cardComponent = card.GetComponent<ScTowerCard>();

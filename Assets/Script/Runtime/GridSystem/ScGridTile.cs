@@ -45,14 +45,14 @@ namespace TD.Runtime.GridSystem {
             TowerOnTile = tower;
         }
         
-        public void PlaceTower(TowerItem tower) {
-            Debug.Log("Placing tower: " + tower.Tower.Name);
-            GameObject newTower = Instantiate(tower.Tower.Prefab, new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), Quaternion.identity);
+        public void PlaceTower(StTowerCard stTower) {
+            Debug.Log("Placing tower: " + stTower.Tower.Name);
+            GameObject newTower = Instantiate(stTower.Tower.Prefab, new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), Quaternion.identity);
             newTower.transform.parent = transform;
             newTower.transform.localScale = Vector3.one;
             ITower towerComp = newTower.GetComponent<ITower>();
             SetTower(towerComp);
-            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level, tower.Tower.Range);
+            towerComp.InitTower(TilePosition, stTower.Rarity,stTower.Level, stTower.Tower.Range);
             CloseTowerSelection();
             _gridManager.ClearPreview();
         }
