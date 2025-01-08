@@ -1,5 +1,6 @@
 ﻿using TD.Runtime.Tools;
 using TD.Runtime.Tower;
+using TD.Runtime.Tower.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,7 +34,8 @@ namespace TD.Runtime.Gacha {
             _animator.SetTrigger(ShowTrigger);
             IsShowed = true;
             IsShowing = true;
-            /*ScGachaFX.Instance.PlayRarityFX(Tower.Rarity, transform.position);*/
+            ScGachaFX.Instance.PlayRarityFX(Tower.Rarity, transform.position + new Vector3(0, 1.5f, -1f));
+            ScTowerManager.Instance.AddCard(Tower.Tower, Tower.Rarity, Tower.Fragments);
         }
 
         public void UnShow(){

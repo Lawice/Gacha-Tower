@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using TD.Runtime.GridSystem;
+using TD.Runtime.Tower;
 using static TD.Runtime.Tools.ScEnums;
 using TMPro;
+using TD.Runtime.Tower.Inventory;
+using UnityEngine.Serialization;
 
 namespace TD.Runtime.Tower {
     public class ScTowerManager : MonoBehaviour {
         public static ScTowerManager Instance { get; private set; }
-        public SerializedDictionary<StTowerCard, int> Towers = new();
+        public SerializedDictionary<StCardInventory, StCardInventoryValue> Towers = new();
 
         ScGridManager _gridManager => ScGridManager.Instance;
         
@@ -31,8 +35,8 @@ namespace TD.Runtime.Tower {
         }
 
         private void Start() {
-            /*_moneyText.text = "Money : " + Money;*/
-            /*CardContainer.SetActive(false);*/
+            _moneyText.text = "Money : " + Money;
+            CardContainer.SetActive(false);
         }
 
         public void ShowCards() {
@@ -52,8 +56,24 @@ namespace TD.Runtime.Tower {
             CardContainer.SetActive(false);
         }
         
-        public void AddTower(SoTower tower, Rarity rarity, int level) {
-            Towers.Add(new StTowerCard { Tower = tower, Rarity = rarity, Level = level }, 1);
+        public void AddCard(SoTower tower, Rarity rarity, int fragments) {
+            if (tower == null)return;
+
+            StCardInventory key = new() { Tower = tower, Rarity = rarity };
+
+            if (Towers.TryGetValue(key, out var existingCardValue)) {
+                Debug.Log($"Adding {fragments} fragments to {tower.Name}");
+                existingCardValue.Fragments += fragments;
+                existingCardValue.Count++;
+        
+
+                Towers[key] = existingCardValue;
+        
+                Debug.Log(existingCardValue.Fragments);
+            } else {
+
+                Towers.Add(key, new StCardInventoryValue { Fragments = fragments, Count = 1});
+            }
         }
 
         public void UpdateCards() {
@@ -62,11 +82,11 @@ namespace TD.Runtime.Tower {
         }
 
         private void AddCards() {
-            foreach (KeyValuePair<StTowerCard, int> tower in Towers) {
-                if (tower.Value <= 0) continue;
+            foreach (KeyValuePair<StCardInventory, StCardInventoryValue> tower in Towers) {
+                if (tower.Value.Count <= 0) continue;
                 GameObject card = Instantiate(CardPrefab, CardParent);
                 ScTowerCard cardComponent = card.GetComponent<ScTowerCard>();
-                cardComponent.SetTower(tower.Key, tower.Value);
+                cardComponent.SetTower(new StTowerCard{ Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
             }
         }
 
@@ -76,4 +96,14 @@ namespace TD.Runtime.Tower {
             }
         }
     }
+}
+[System.Serializable]
+public struct StCardInventory {
+    public SoTower Tower;
+    public Rarity Rarity;
+}
+[System.Serializable]
+public struct StCardInventoryValue {
+    public int Count;
+    public int Fragments;
 }

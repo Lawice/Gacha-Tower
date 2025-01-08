@@ -4,6 +4,7 @@ using TD.Player;
 using UnityEngine;
 
 using TD.Runtime.Tower;
+using TD.Runtime.Tower.Inventory;
 
 namespace TD.Runtime.GridSystem {
     public class ScGridTile : MonoBehaviour {

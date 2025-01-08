@@ -3,15 +3,14 @@ using TD.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using static TD.Runtime.Tools.ScEnums;
 
-namespace TD.Runtime.Tower {
+namespace TD.Runtime.Tower.Inventory {
     public class ScTowerCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         ScTowerManager _towerManager => ScTowerManager.Instance;
         ScGridManager _gridManager => ScGridManager.Instance;
         
-        [FormerlySerializedAs("_tower")] [SerializeField] private StTowerCard stTower;
+        [SerializeField] private StTowerCard _tower;
         [SerializeField] private int _count;
         [SerializeField] private int _realCost;
         
@@ -20,49 +19,53 @@ namespace TD.Runtime.Tower {
         [SerializeField] private TextMeshProUGUI _starsText;
 
         public void SetTower(StTowerCard stTower, int count) {
-            this.stTower = stTower;
+            _tower = stTower;
             _count = count;
 
-            switch (this.stTower.Rarity) {
+            switch (_tower.Rarity) {
                 case Rarity.Common:
-                    _realCost = this.stTower.Tower.BaseCost;
+                    _realCost = _tower.Tower.BaseCost;
                     break;
                 case Rarity.Rare:
-                    _realCost =  (int)(this.stTower.Tower.BaseCost * 1.1f);
+                    _realCost =  (int)(_tower.Tower.BaseCost * 1.1f);
                     break;
                 case Rarity.Epic:
-                    _realCost = (int)(this.stTower.Tower.BaseCost * 1.25f);
+                    _realCost = (int)(_tower.Tower.BaseCost * 1.25f);
                     break;
                 case Rarity.Legendary:
-                    _realCost = (int)(this.stTower.Tower.BaseCost * 1.35f); 
+                    _realCost = (int)(_tower.Tower.BaseCost * 1.35f); 
                     break;
                 case Rarity.Heroic:
-                    _realCost = (int)(this.stTower.Tower.BaseCost * 1.5f);
+                    _realCost = (int)(_tower.Tower.BaseCost * 1.5f);
                     break;
             }
             
             _priceText.text = _realCost.ToString();
-            _nameText.text = this.stTower.Tower.Name;
-            _starsText.text = this.stTower.Rarity.ToString();
+            _nameText.text = _tower.Tower.Name;
+            _starsText.text = _tower.Rarity.ToString();
         }
 
         public void OnClick() {
-            if(_towerManager.Money - _realCost < 0) return;
+            if (_towerManager.Money < _realCost) {
+                return;
+            }
+
+            StCardInventory cardInventory = new() { Tower = _tower.Tower, Rarity = _tower.Rarity };
 
             _towerManager.Money -= _realCost;
-            if (_towerManager.Towers[stTower] - 1 > 0) {
-                _towerManager.Towers[stTower]--;
-            }
-            else {
-                _towerManager.Towers.Remove(stTower);
-            }
+            if (_towerManager.Towers.TryGetValue(cardInventory, out StCardInventoryValue towerData)) {
+                if (towerData.Count > 1) {
+                    towerData.Count--;
+                }
+            } 
             
-            _gridManager.SelectedTile.PlaceTower(stTower);
+            if (_gridManager.SelectedTile != null) {
+                _gridManager.SelectedTile.PlaceTower(_tower);
+            }
         }
         
         public void OnPointerEnter(PointerEventData eventData) {
-            Debug.Log("AAAA");
-            _gridManager.SetPreview( _gridManager.SelectedTile.TilePosition, stTower.Tower.Range / 10);
+            _gridManager.SetPreview( _gridManager.SelectedTile.TilePosition, _tower.Tower.Range / 10);
         }
 
         public void OnPointerExit(PointerEventData eventData) {

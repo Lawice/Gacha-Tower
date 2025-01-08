@@ -28494,6 +28494,10 @@ PrefabInstance:
       propertyPath: CardContainer
       value: 
       objectReference: {fileID: 1284674269}
+    - target: {fileID: 2772257243957766239, guid: 181d0273379b33747ad586ab59c706c2, type: 3}
+      propertyPath: Towers._serializedList.Array.data[0].Value.Count
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4496638055158770949, guid: 181d0273379b33747ad586ab59c706c2, type: 3}
       propertyPath: _ground
       value: 

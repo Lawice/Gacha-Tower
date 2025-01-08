@@ -551,7 +551,7 @@ namespace CartoonFX
 				// Check isAlive every N frame, with an offset so that all active effects aren't checked at once
 				if ((Time.renderedFrameCount + startFrameOffset) % CHECK_EVERY_N_FRAME == 0)
 				{
-					if (!rootParticleSystem.IsAlive(true))
+					if (!rootParticleSystem.IsAlive(false))
 					{
 						if (clearBehavior == ClearBehavior.Destroy)
 						{

@@ -15,7 +15,10 @@ namespace TD.Player {
         }
 
         void TryInteractObject(Vector2Int position) {
-            if(!_gridManager.TryGetTile(position, out ScGridTile tile)) return;
+            if (!_gridManager.TryGetTile(position, out ScGridTile tile)) {
+                Debug.Log("Out of bounds");
+                return;
+            }
             if(!tile.IsTowerPlaceable) return;
 
             _gridManager.SelectedTile = tile;

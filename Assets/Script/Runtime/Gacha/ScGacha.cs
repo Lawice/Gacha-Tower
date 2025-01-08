@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TD.Runtime.Tower;
+using TD.Runtime.Tower.Inventory;
 using UnityEngine;
 using static TD.Runtime.Tools.ScEnums;
 using Random = UnityEngine.Random;
@@ -17,6 +18,7 @@ namespace TD.Runtime.Gacha {
 
         ScGachaCardsManager _cardsManager;
 
+        private bool _canPull = true;
 
         private void Start() {
             _cardsManager = GetComponent<ScGachaCardsManager>();
@@ -25,7 +27,7 @@ namespace TD.Runtime.Gacha {
         ScTowerManager _towerManager=>ScTowerManager.Instance;
 
         public void StartSoloPull() {
-            if (!_cardsManager.CanPull) return;
+            if (!_cardsManager.CanPull||!_canPull) return;
             if (_towerManager.Money - _pullPrize < 0) return;
 
             _cardsManager.CanPull = false;
@@ -42,6 +44,45 @@ namespace TD.Runtime.Gacha {
                 _cardsManager.SetCards(towers);
                 _cardsManager.ShowCards();
             }
+        }
+        
+        public void StartMultiPull() {
+            if (!_cardsManager.CanPull||!_canPull) return;
+            if (_towerManager.Money - _pullPrize * 10 < 0) return;
+
+            _canPull = false;
+            _towerManager.Money -= _pullPrize * 10;
+            _pullCount += 10;
+
+            ScGachaFX.Instance.ToggleLuckyFX(false);
+
+            List<StTowerCard> allTowers = new();
+
+            for (int i = 0; i < 10; i++) {
+                List<StTowerCard> towers = Pull();
+                allTowers.AddRange(towers);
+            }
+
+            StartCoroutine(DisplayMultiPullCards(allTowers));
+        }
+
+        private IEnumerator DisplayMultiPullCards(List<StTowerCard> allTowers) {
+            for (int i = 0; i < allTowers.Count; i += 5) {
+                if (_cardsManager.IsAllCardShowed) {
+                    yield return _cardsManager.HideCards();
+                }
+                List<StTowerCard> currentBatch = allTowers.Skip(i).Take(5).ToList();
+                
+                _cardsManager.SetCards(currentBatch);
+                _cardsManager.ShowCards();
+                
+                yield return new WaitUntil(() => _cardsManager.IsAllCardShowed);
+                yield return new WaitForSeconds(1.6f);
+                
+                yield return _cardsManager.HideCards();
+            }
+            
+            _canPull = true;
         }
 
         private IEnumerator HideAndPullCards() {

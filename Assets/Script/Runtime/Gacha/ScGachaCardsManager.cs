@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TD.Runtime.Tower;
+using TD.Runtime.Tower.Inventory;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TD.Runtime.Gacha {
     public class ScGachaCardsManager : MonoBehaviour {
@@ -12,19 +10,21 @@ namespace TD.Runtime.Gacha {
         [SerializeField] List<ScGachaCard> _cards;
         [SerializeField] private GameObject _cardParent;
 
-        private bool _isAutoShow;
+        public bool IsAutoShow;
         
         public bool CanPull = true;
-         public bool IsAllCardShowed; 
-         public bool IsShowing;
-         public bool IsUnShowing;
+        public bool IsAllCardShowed;
+        public bool IsCardShowed;
+        public bool IsShowing;
+        public bool IsUnShowing;
 
         public void SetAutoShow(bool toggle) {
-            _isAutoShow = toggle;
+            IsAutoShow = toggle;
         }
         
         private void Update() {
             IsAllCardShowed = _cards.All(card => card.IsShowed);
+            IsCardShowed = _cards.Any(card => card.IsShowed);
             IsShowing = _cards.Any(card => card.IsShowing);
             IsUnShowing = _cards.Any(card => card.IsUnShowing);
             
@@ -32,7 +32,7 @@ namespace TD.Runtime.Gacha {
                 CanPull = true;
             }
             
-            if (_isAutoShow&& !IsAllCardShowed && !IsShowing && !IsUnShowing) {
+            if (IsAutoShow&& !IsAllCardShowed && !IsShowing && !IsUnShowing) {
                 StartCoroutine(ShowAllCards());
             }
         }

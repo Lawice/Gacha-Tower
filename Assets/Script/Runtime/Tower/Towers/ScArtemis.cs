@@ -16,25 +16,11 @@ namespace TD.Runtime.Tower {
         public void Attack() {
 
         }
-
-
-        public void Evolve(int amount = 1) {
-            if (Rarity + amount > ScEnums.Rarity.Heroic) {
-                Rarity = ScEnums.Rarity.Heroic;
-            }
-            Rarity += amount;
-        }
+        
 
         public void Upgrade(int levelAmount = 1) {
             if(Level + levelAmount > MaxLevel) Level = MaxLevel;
             Level += levelAmount;
-        }
-        public void Evolve() {
-            
-        }
-
-        public void Upgrade() {
-            
         }
     }
 }
