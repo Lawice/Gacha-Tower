@@ -77,8 +77,9 @@ namespace TD.Runtime.GridSystem {
         }
 
         public ScGridTile GetTile(int x, int y) {
-
+            Debug.Log("Getting tile: " + x + ", " + y);
             if (OutOfBounds(new Vector2Int(x,y))) return null;
+            Debug.Log("Got tile: " + _grid[x, y].TilePosition);
             return _grid[x, y];
         }
 
