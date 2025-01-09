@@ -17,6 +17,8 @@ namespace TD.Runtime.Tower.View {
         
         [SerializeField] MeshFilter _viewMeshFilter;
         Mesh _viewMesh;
+
+        public bool Showing;
         
         private void Start() {
             _viewMesh = new Mesh {
@@ -27,6 +29,8 @@ namespace TD.Runtime.Tower.View {
         }
 
         private void LateUpdate() {
+            _viewMeshFilter.gameObject.SetActive(Showing);
+            if (!Showing) return;
             DrawFieldOfView();
         }
 
