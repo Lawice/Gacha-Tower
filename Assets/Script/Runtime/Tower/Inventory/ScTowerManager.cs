@@ -81,14 +81,14 @@ namespace TD.Runtime.Tower {
                 if (tower.Value.Count > 0) {
                     // If the card already exists, update it
                     if (_activeCards.TryGetValue(tower.Key, out GameObject existingCard)) {
-                        ScTowerCard cardComponent = existingCard.GetComponent<ScTowerCard>();
+                        ScTowerCard cardComponent = existingCard.GetComponentInChildren<ScTowerCard>();
                         cardComponent.SetTower(new StTowerCard { Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
                         existingCard.SetActive(true); // Ensure it's visible
                     } 
                     // If the card does not exist, create it
                     else {
                         GameObject newCard = Instantiate(CardPrefab, CardParent);
-                        ScTowerCard cardComponent = newCard.GetComponent<ScTowerCard>();
+                        ScTowerCard cardComponent = newCard.GetComponentInChildren<ScTowerCard>();
                         cardComponent.SetTower(new StTowerCard { Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
                         _activeCards[tower.Key] = newCard;
                     }

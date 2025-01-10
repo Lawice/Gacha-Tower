@@ -24,5 +24,7 @@ namespace TD.Runtime.Tower {
             Level = level;
             Range = range;
         }
+
+        public void ShowRange(bool show);
     }
 }

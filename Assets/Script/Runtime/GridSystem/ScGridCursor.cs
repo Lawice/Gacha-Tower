@@ -1,3 +1,4 @@
+using TD.Runtime.Tower;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,9 +37,13 @@ namespace TD.Runtime.GridSystem {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100f)) {
                 ScGridTile tile = hit.collider.GetComponent<ScGridTile>();
+                ScTower tower = hit.collider.GetComponent<ScTower>();
                 if (tile != null) {
                     CursorPosition = tile.TilePosition;
                     transform.position = new Vector3(CursorPosition.x+_gridManager.TileSize/2f, transform.position.y, CursorPosition.y+_gridManager.TileSize/2f);
+                } else if(tower != null) {
+                    _gridManager.SelectedTower = tower;
+                    CursorPosition = new Vector2Int(-1, -1);
                 } else {
                     CursorPosition = new Vector2Int(-1, -1);
                 }

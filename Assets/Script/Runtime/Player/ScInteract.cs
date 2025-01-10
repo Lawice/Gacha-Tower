@@ -1,6 +1,7 @@
 using TD.Runtime.GridSystem;
 
 using TD.Runtime.InputSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TD.Player {
@@ -15,16 +16,34 @@ namespace TD.Player {
         }
 
         void TryInteractObject(Vector2Int position) {
-            if(!_gridManager.TryGetTile(position, out ScGridTile tile)) return;
-            if(!tile.IsTowerPlaceable) return;
+            Debug.Log(position);
+            HideTowerUpgrade();
+            if (!_gridManager.TryGetTile(position, out ScGridTile tile)) {
+                if (_gridManager.SelectedTower != null) {
+                    if (_gridManager.TryGetTowerTile()) {
+                        _gridManager.SelectedTile.OpenTowerUpgrade();
+                    }
+                }
+                return;
+            }
+            if (!tile.IsTowerPlaceable) {
+                return;
+            }
 
             _gridManager.SelectedTile = tile;
-            if(!tile.IsTowerPlaced) tile.OpenTowerSelection();
+            if (!tile.IsTowerPlaced) {
+                tile.OpenTowerSelection();
+            }
             
             _inputManager.IsInteracting = false;
-        
-            
         }
+
+        void HideTowerUpgrade() {
+            if (_gridManager.SelectedTile == null) return;
+            if(!_gridManager.SelectedTile.IsTowerPlaced)return;
+            _gridManager.SelectedTile.CloseTowerUpgrade();
+        }
+
 
         
         
