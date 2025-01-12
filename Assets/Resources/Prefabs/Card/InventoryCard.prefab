@@ -102,6 +102,7 @@ MonoBehaviour:
   _priceText: {fileID: 6623650810222605946}
   _nameText: {fileID: 6038159146071191697}
   _rarityImage: {fileID: 6760488944268817847}
+  _backgroundImage: {fileID: 1544328049909697530}
 --- !u!114 &9134821141212935377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,8 +233,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -368,8 +369,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

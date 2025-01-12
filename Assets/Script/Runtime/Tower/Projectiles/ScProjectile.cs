@@ -1,8 +1,9 @@
 ﻿using System;
+using TD.Runtime.Enemy;
 using UnityEngine;
 
 namespace TD.Runtime.Tower.Projectiles {
-    public class ScArrows: MonoBehaviour {
+    public class ScProjectile: MonoBehaviour {
         private Vector3 _target;
         private float _speed;
         [SerializeField]LayerMask _enemyLayer;
@@ -20,8 +21,8 @@ namespace TD.Runtime.Tower.Projectiles {
         }
 
         private void OnCollisionEnter(Collision other) {
-            if (((1 << other.gameObject.layer) & _enemyLayer) != 0) {
-
+            if (other.gameObject.TryGetComponent(out ScEnemy enemy)) {
+                enemy.TakeDamage(_damage);
             }
             Destroy(gameObject);
         }

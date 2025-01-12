@@ -6,10 +6,8 @@ using TD.Runtime.GridSystem;
 using TD.Runtime.Tower;
 using static TD.Runtime.Tools.ScEnums;
 using TMPro;
-using TD.Runtime.Tower.Inventory;
-using UnityEngine.Serialization;
 
-namespace TD.Runtime.Tower {
+namespace TD.Runtime.Tower.Inventory {
     public class ScTowerManager : MonoBehaviour {
         public static ScTowerManager Instance { get; private set; }
         public SerializedDictionary<StCardInventory, StCardInventoryValue> Towers = new();
@@ -67,6 +65,7 @@ namespace TD.Runtime.Tower {
         
         public void HideCards() {
             _gridManager.ToggleCursorLock(true);
+            _gridManager.SelectedTile.ResetColor();
             UpdateMoneyText();
             CardContainer.SetActive(false);
         }

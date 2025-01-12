@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 983676537155672990}
   - component: {fileID: 1888014901386836863}
-  - component: {fileID: -5782327425987526391}
+  - component: {fileID: 6343191710133923771}
   m_Layer: 0
-  m_Name: Artemis
+  m_Name: Shino
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5782327425987526391
+--- !u!114 &6343191710133923771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,20 +65,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 728812955778559473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce14ddd25ef45e8a788a62ba750a5e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 53be56dff68d56541b398cf6220fa2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Position>k__BackingField: {x: 0, y: 0}
-  <Range>k__BackingField: 4
-  <AttackCooldown>k__BackingField: 1
+  <Range>k__BackingField: 10
+  <AttackCooldown>k__BackingField: 2
   <Level>k__BackingField: 1
   <MaxLevel>k__BackingField: 10
   <Rarity>k__BackingField: 0
-  <Tower>k__BackingField: {fileID: 11400000, guid: 59967df22d7159a41ad1d6313ba8ce65, type: 2}
+  <Tower>k__BackingField: {fileID: 11400000, guid: 596ad892b2232da4a8003f17a3587201, type: 2}
   _fov: {fileID: 3095171788283647504}
-  _projectilePrefab: {fileID: 2096532181713211113, guid: 8acddce9a116c5f4fb556ff95d6def6b, type: 3}
-  _baseDamage: 4
-  _projectileSpeed: 10
+  _projectilePrefab: {fileID: 2096532181713211113, guid: 7047d9852ece5524f9f018bfe16c2a8b, type: 3}
+  _baseDamage: 15
+  _projectileSpeed: 20
 --- !u!1 &8153187300995234686
 GameObject:
   m_ObjectHideFlags: 0

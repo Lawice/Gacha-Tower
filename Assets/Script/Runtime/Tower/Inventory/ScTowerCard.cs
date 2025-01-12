@@ -45,7 +45,7 @@ namespace TD.Runtime.Tower.Inventory {
             _priceText.text = _realCost.ToString();
             _nameText.text = _tower.Tower.Name;
             _rarityImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Rarity/" + _tower.Rarity);
-            _backgroundImage.sprite = Resources.Load<Sprite>("Sprites/Card/Girls/" + _tower.Tower.Name);
+            _backgroundImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Girls/" + _nameText.text);
         }
 
         public void OnClick() {

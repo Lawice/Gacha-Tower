@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4850d91d1964a914196a53925072b94d, type: 3}
-  m_Name: Shino
+  m_Name: "M\xE9lissa"
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Shino
+  <Name>k__BackingField: "M\xE9lissa"
   <Type>k__BackingField: 0
-  <Description>k__BackingField: "Tire des projectiles qui font de lours d\xE9g\xE2ts"
-  <Icon>k__BackingField: {fileID: 0}
-  <Prefab>k__BackingField: {fileID: 0}
-  <BaseCost>k__BackingField: 145
-  <Range>k__BackingField: 15
+  <Description>k__BackingField: Lance des shuriken
+  <Prefab>k__BackingField: {fileID: 728812955778559473, guid: e1db8b15ac390c746a9900078e8391d4, type: 3}
+  <BaseCost>k__BackingField: 130
+  <Range>k__BackingField: 5
