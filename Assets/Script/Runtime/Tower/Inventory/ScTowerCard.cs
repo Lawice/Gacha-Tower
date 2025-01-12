@@ -18,6 +18,7 @@ namespace TD.Runtime.Tower.Inventory {
         [SerializeField] private TextMeshProUGUI _priceText;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private Image _rarityImage;
+        [SerializeField] private Image _backgroundImage;
 
         public void SetTower(StTowerCard stTower, int count) {
             _tower = stTower;
@@ -44,6 +45,7 @@ namespace TD.Runtime.Tower.Inventory {
             _priceText.text = _realCost.ToString();
             _nameText.text = _tower.Tower.Name;
             _rarityImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Rarity/" + _tower.Rarity);
+            _backgroundImage.sprite = Resources.Load<Sprite>("Sprites/Card/Girls/" + _tower.Tower.Name);
         }
 
         public void OnClick() {
@@ -53,7 +55,7 @@ namespace TD.Runtime.Tower.Inventory {
 
             StCardInventory cardInventory = new() { Tower = _tower.Tower, Rarity = _tower.Rarity };
 
-            _towerManager.Money -= _realCost;
+            _towerManager.RemoveMoney(_realCost);
             if (_towerManager.Towers.TryGetValue(cardInventory, out StCardInventoryValue towerData)) {
                 towerData.Count--;
                 _towerManager.Towers[cardInventory] = towerData;

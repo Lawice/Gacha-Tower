@@ -70,13 +70,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Position>k__BackingField: {x: 0, y: 0}
   <Range>k__BackingField: 4
-  <Cooldown>k__BackingField: 2
+  <AttackCooldown>k__BackingField: 1
   <Level>k__BackingField: 1
   <MaxLevel>k__BackingField: 10
   <Rarity>k__BackingField: 0
   <Tower>k__BackingField: {fileID: 11400000, guid: 59967df22d7159a41ad1d6313ba8ce65, type: 2}
   _fov: {fileID: 3095171788283647504}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 2096532181713211113, guid: 8acddce9a116c5f4fb556ff95d6def6b, type: 3}
 --- !u!1 &8153187300995234686
 GameObject:
   m_ObjectHideFlags: 0

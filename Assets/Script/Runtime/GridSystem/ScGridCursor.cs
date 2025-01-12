@@ -34,6 +34,8 @@ namespace TD.Runtime.GridSystem {
         private void Update() {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100f)) {
                 ScGridTile tile = hit.collider.GetComponent<ScGridTile>();

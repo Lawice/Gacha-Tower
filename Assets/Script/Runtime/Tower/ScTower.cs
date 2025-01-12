@@ -1,4 +1,5 @@
-﻿using TD.Runtime.Tools;
+﻿using System.Collections.Generic;
+using TD.Runtime.Tools;
 using TD.Runtime.Tower.View;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace TD.Runtime.Tower {
     public abstract class ScTower :MonoBehaviour, ITower {
         [field:SerializeField] public Vector2Int Position { get; set; }
         [field:SerializeField] public int Range { get; set; }
-        [field:SerializeField] public int Cooldown { get; set; }
+        [field:SerializeField] public int AttackCooldown { get; set; }
         [field:SerializeField] public int Level { get; set; }
         [field: SerializeField] public int MaxLevel { get; set; } = 10;
         [field:SerializeField] public ScEnums.Rarity Rarity { get; set; }
@@ -14,7 +15,14 @@ namespace TD.Runtime.Tower {
 
         [SerializeField] private ScFieldOfView _fov;
         
-        public virtual void Attack() {
+         protected List<Transform> _enemiesInRange = new();
+         
+         protected void GetEnemiesInRange() {
+             _enemiesInRange.Clear();
+             _enemiesInRange.AddRange(_fov.VisibleTargets);
+         }
+        
+        public virtual void Attack(Vector3 target) {
             
         }
 

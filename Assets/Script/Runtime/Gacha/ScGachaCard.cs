@@ -56,13 +56,13 @@ namespace TD.Runtime.Gacha {
             Material[] materials2 = _childMeshRenderer.materials;
 
             if (materials.Length > 0) {
-                materials[0] = Resources.Load<Material>("Materials/Card/Girls/" + tower.Tower.Name);;
+                materials[0] = Resources.Load<Material>("Materials/Card/Girls/" + tower.Tower.Name);
                 _meshRenderer.materials = materials;
 
             }
             
             if (materials2.Length > 0) {
-                materials2[0] = Resources.Load<Material>("Materials/Card/Rarity/" + tower.Rarity);;
+                materials2[0] = Resources.Load<Material>("Materials/Card/Rarity/" + tower.Rarity);
                 _childMeshRenderer.materials = materials2;
             }
         

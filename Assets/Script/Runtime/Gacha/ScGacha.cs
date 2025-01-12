@@ -31,7 +31,7 @@ namespace TD.Runtime.Gacha {
             if (_towerManager.Money - _pullPrize < 0) return;
 
             _cardsManager.CanPull = false;
-            _towerManager.Money -= _pullPrize;
+            _towerManager.RemoveMoney(_pullPrize);
             _pullCount++;
             ScGachaFX.Instance.ToggleLuckyFX(false);
 
@@ -51,7 +51,7 @@ namespace TD.Runtime.Gacha {
             if (_towerManager.Money - _pullPrize * 10 < 0) return;
 
             _canPull = false;
-            _towerManager.Money -= _pullPrize * 10;
+            _towerManager.RemoveMoney((int)(_pullPrize*10*0.95f));
             _pullCount += 10;
 
             ScGachaFX.Instance.ToggleLuckyFX(false);

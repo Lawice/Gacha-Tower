@@ -6,7 +6,7 @@ namespace TD.Runtime.Tower {
         public Vector2Int Position { get; set; }
         
         public int Range { get; set; }
-        public int Cooldown{get; set;}
+        public int AttackCooldown{get; set;}
         
         public int Level { get; set; }
 
@@ -15,7 +15,7 @@ namespace TD.Runtime.Tower {
         public Rarity Rarity { get; set; }
         public SoTower Tower { get; set; }
         
-        public void Attack();
+        public void Attack(Vector3 target);
         public void Upgrade(int levelAmount = 1);
 
         public void InitTower(Vector2Int position, Rarity rarity, int level, int range) {

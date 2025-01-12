@@ -36,12 +36,26 @@ namespace TD.Runtime.Tower {
         }
 
         private void Start() {
-            _moneyText.text = "Money : " + Money;
+            UpdateMoneyText();
             CardContainer.SetActive(false);
+        }
+        
+        public void AddMoney(int amount) {
+            Money += amount;
+            UpdateMoneyText();
+        }
+        
+        public void RemoveMoney(int amount) {
+            Money -= amount;
+            UpdateMoneyText();
+        }
+
+        void UpdateMoneyText() {
+            _moneyText.text = "Money : " + Money;
         }
 
         public void ShowCards() {
-            _moneyText.text = "Money : " + Money;
+            UpdateMoneyText();
             _gridManager.ToggleCursorLock(false);
             if (Towers.Count == 0 || Towers.All(tower => tower.Value.Count <= 0)) {
                 _gridManager.SelectedTile.CloseTowerSelection();
@@ -53,7 +67,7 @@ namespace TD.Runtime.Tower {
         
         public void HideCards() {
             _gridManager.ToggleCursorLock(true);
-            _moneyText.text = "Money : " + Money;
+            UpdateMoneyText();
             CardContainer.SetActive(false);
         }
         
