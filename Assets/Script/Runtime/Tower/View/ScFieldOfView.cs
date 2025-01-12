@@ -104,7 +104,6 @@ namespace TD.Runtime.Tower.View {
             _viewMesh.vertices = vertices;
             _viewMesh.triangles = triangles;
             
-            Debug.Log(_viewMesh.vertices.Length + " " + _viewMesh.triangles.Length);
             _viewMesh.RecalculateNormals();
         }
         

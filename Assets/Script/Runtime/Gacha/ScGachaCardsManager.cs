@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TD.Runtime.Tower.Inventory;
@@ -8,7 +9,7 @@ namespace TD.Runtime.Gacha {
     public class ScGachaCardsManager : MonoBehaviour {
         private static readonly int Show = Animator.StringToHash("Show");
         [SerializeField] List<ScGachaCard> _cards;
-        [SerializeField] private GameObject _cardParent;
+        [SerializeField] private Animator _cardParentAnimator;
 
         public bool IsAutoShow;
         
@@ -21,7 +22,11 @@ namespace TD.Runtime.Gacha {
         public void SetAutoShow(bool toggle) {
             IsAutoShow = toggle;
         }
-        
+
+        private void Start() {
+            _cardParentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        }
+
         private void Update() {
             IsAllCardShowed = _cards.All(card => card.IsShowed);
             IsCardShowed = _cards.Any(card => card.IsShowed);
@@ -59,7 +64,7 @@ namespace TD.Runtime.Gacha {
         }
         
         public void ShowCards() {
-            _cardParent.GetComponent<Animator>().SetTrigger(Show);
+            _cardParentAnimator.SetTrigger(Show);
             CanPull = false;
         }
         

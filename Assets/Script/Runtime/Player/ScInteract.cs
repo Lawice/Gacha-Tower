@@ -43,9 +43,5 @@ namespace TD.Player {
             if(!_gridManager.SelectedTile.IsTowerPlaced)return;
             _gridManager.SelectedTile.CloseTowerUpgrade();
         }
-
-
-        
-        
     }
 }

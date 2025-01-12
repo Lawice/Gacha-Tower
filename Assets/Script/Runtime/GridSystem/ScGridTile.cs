@@ -37,8 +37,13 @@ namespace TD.Runtime.GridSystem {
         
         public void CloseTowerSelection() {
             ScTowerManager.Instance.HideCards();
+            ResetColor();
+        }
+
+        public void ResetColor() {
             _renderer.material.color = _startColor;
         }
+
 
         public void OpenTowerUpgrade() {
             TowerOnTile.ShowRange(true);
@@ -61,7 +66,7 @@ namespace TD.Runtime.GridSystem {
             newTower.transform.localScale = Vector3.one;
             ITower towerComp = newTower.GetComponent<ITower>();
             SetTower(towerComp);
-            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level, tower.Tower.Range);
+            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level);
             CloseTowerSelection();
             _gridManager.ClearPreview();
         }

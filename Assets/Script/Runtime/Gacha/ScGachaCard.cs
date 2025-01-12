@@ -20,6 +20,7 @@ namespace TD.Runtime.Gacha {
         
         private void Awake() {
             _animator = GetComponent<Animator>();
+            _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             _meshRenderer = GetComponent<MeshRenderer>();
             _childMeshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
         }
@@ -31,6 +32,7 @@ namespace TD.Runtime.Gacha {
 
         public void Show() {
             if(IsShowed) return;
+            _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             _animator.SetTrigger(ShowTrigger);
             IsShowed = true;
             IsShowing = true;

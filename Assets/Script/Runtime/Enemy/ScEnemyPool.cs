@@ -1,32 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Script.Runtime.Enemy {
+namespace TD.Runtime.Enemy {
     public class ScEnemyPool : MonoBehaviour{
-        private ObjectPool<GameObject> _pool;
-        [SerializeField] GameObject _enemyPrefab;
-
+        public ObjectPool<GameObject> Pool;
+        [SerializeField] private GameObject _enemyPrefab;
+        
         private void Awake() {
-            _pool = new ObjectPool<GameObject>(Create, OnTakeFromPool, OnReturnedToPool);
+            Pool = new ObjectPool<GameObject>(CreateObject, OnTakeFromPool, OnReturnedToPool, OnDestroyObject,true, 100);
         }
 
+        private GameObject CreateObject() {
+            GameObject enemy = Instantiate(_enemyPrefab, transform);
+            enemy.GetComponent<ScEnemy>().SetPool(Pool);
+            return enemy;
+        }
+        
+        private void OnTakeFromPool(GameObject obj) {
+            obj.transform.position = transform.position;
+            obj.SetActive(true);
+        }
+        
         private void OnReturnedToPool(GameObject obj) {
             obj.SetActive(false);
         }
-
-        private void Update() {
-            GameObject newEnemy = _pool.Get();
-            newEnemy.transform.position = transform.position;
+        
+        private void OnDestroyObject(GameObject obj) {
+            Destroy(obj);
         }
 
-        private void OnTakeFromPool(GameObject obj) {
-            obj.SetActive(true);
-        }
-
-        private GameObject Create() {
-            GameObject enemy = Instantiate(_enemyPrefab);
-            return enemy;
-        }
     }
 }
