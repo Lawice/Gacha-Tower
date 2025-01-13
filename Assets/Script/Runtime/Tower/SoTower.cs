@@ -7,7 +7,6 @@ namespace TD.Runtime.Tower {
         [field:SerializeField]public string Name { get; set; }
         [field:SerializeField]public TowerType Type { get; set; }
         [field:SerializeField]public string Description { get; set; }
-        [field:SerializeField]public Sprite Icon { get; set; }
         [field:SerializeField]public GameObject Prefab { get; set; }
         [field:SerializeField]public int BaseCost { get; set; }
         [field:SerializeField]public int Range { get; set; }

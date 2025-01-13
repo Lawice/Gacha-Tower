@@ -1,8 +1,8 @@
 ﻿using TD.Runtime.GridSystem;
-using TD.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static TD.Runtime.Tools.ScEnums;
 
 namespace TD.Runtime.Tower.Inventory {
@@ -16,7 +16,8 @@ namespace TD.Runtime.Tower.Inventory {
         
         [SerializeField] private TextMeshProUGUI _priceText;
         [SerializeField] private TextMeshProUGUI _nameText;
-        [SerializeField] private TextMeshProUGUI _starsText;
+        [SerializeField] private Image _rarityImage;
+        [SerializeField] private Image _backgroundImage;
 
         public void SetTower(StTowerCard stTower, int count) {
             _tower = stTower;
@@ -42,7 +43,8 @@ namespace TD.Runtime.Tower.Inventory {
             
             _priceText.text = _realCost.ToString();
             _nameText.text = _tower.Tower.Name;
-            _starsText.text = _tower.Rarity.ToString();
+            _rarityImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Rarity/" + _tower.Rarity);
+            _backgroundImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Girls/" + _nameText.text);
         }
 
         public void OnClick() {
@@ -52,12 +54,11 @@ namespace TD.Runtime.Tower.Inventory {
 
             StCardInventory cardInventory = new() { Tower = _tower.Tower, Rarity = _tower.Rarity };
 
-            _towerManager.Money -= _realCost;
+            _towerManager.RemoveMoney(_realCost);
             if (_towerManager.Towers.TryGetValue(cardInventory, out StCardInventoryValue towerData)) {
-                if (towerData.Count > 1) {
-                    towerData.Count--;
-                }
-            } 
+                towerData.Count--;
+                _towerManager.Towers[cardInventory] = towerData;
+            }
             
             if (_gridManager.SelectedTile != null) {
                 _gridManager.SelectedTile.PlaceTower(_tower);
@@ -65,7 +66,7 @@ namespace TD.Runtime.Tower.Inventory {
         }
         
         public void OnPointerEnter(PointerEventData eventData) {
-            _gridManager.SetPreview( _gridManager.SelectedTile.TilePosition, _tower.Tower.Range / 10);
+            _gridManager.SetPreview( _gridManager.SelectedTile.TilePosition, _tower.Tower.Range);
         }
 
         public void OnPointerExit(PointerEventData eventData) {

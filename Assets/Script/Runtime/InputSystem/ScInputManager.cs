@@ -23,7 +23,8 @@ namespace TD.Runtime.InputSystem{
         public bool IsEscaping;
         
         public bool IsCameraLocked;
-
+        
+        public InputEvent OnGachaOpenEvent;
         
         private void Awake() {
             if (Instance == null) {
@@ -49,6 +50,10 @@ namespace TD.Runtime.InputSystem{
         
         public void OnEscape(InputAction.CallbackContext ctx) {
             InvokeInputEvent(ctx, OnEscapeEvent);
+        }
+        
+        public void OnGachaOpen(InputAction.CallbackContext ctx) {
+            InvokeInputEvent(ctx, OnGachaOpenEvent);
         }
 
         private void InvokeInputEvent(InputAction.CallbackContext ctx, InputEvent inputEvent) {

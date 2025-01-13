@@ -1,8 +1,5 @@
-﻿using System;
-using TD.Runtime.InputSystem;
-using TD.Player;
+﻿using TD.Runtime.InputSystem;
 using UnityEngine;
-
 using TD.Runtime.Tower;
 using TD.Runtime.Tower.Inventory;
 
@@ -17,7 +14,7 @@ namespace TD.Runtime.GridSystem {
         private MeshRenderer _renderer;
         ScGridManager _gridManager => ScGridManager.Instance;
         
-        private void Start() {
+        private void Awake() {
             TilePosition = new Vector2Int((int)(transform.localPosition.x), (int)(transform.localPosition.z));
             _renderer = GetComponentInChildren<MeshRenderer>();
             _startColor = _renderer.material.color;
@@ -36,9 +33,22 @@ namespace TD.Runtime.GridSystem {
         }
         
         public void CloseTowerSelection() {
-
             ScTowerManager.Instance.HideCards();
+            ResetColor();
+        }
+
+        public void ResetColor() {
             _renderer.material.color = _startColor;
+        }
+
+
+        public void OpenTowerUpgrade() {
+            TowerOnTile.ShowRange(true);
+            _gridManager.SelectedTile = this;
+        }
+        public void CloseTowerUpgrade() {
+            TowerOnTile.ShowRange(false);
+            _gridManager.SelectedTile = null;
         }
         
         public void SetTower(ITower tower) {
@@ -53,7 +63,7 @@ namespace TD.Runtime.GridSystem {
             newTower.transform.localScale = Vector3.one;
             ITower towerComp = newTower.GetComponent<ITower>();
             SetTower(towerComp);
-            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level, tower.Tower.Range);
+            towerComp.InitTower(TilePosition, tower.Rarity,tower.Level);
             CloseTowerSelection();
             _gridManager.ClearPreview();
         }

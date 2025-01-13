@@ -6,13 +6,12 @@ using TD.Runtime.GridSystem;
 using TD.Runtime.Tower;
 using static TD.Runtime.Tools.ScEnums;
 using TMPro;
-using TD.Runtime.Tower.Inventory;
-using UnityEngine.Serialization;
 
-namespace TD.Runtime.Tower {
+namespace TD.Runtime.Tower.Inventory {
     public class ScTowerManager : MonoBehaviour {
         public static ScTowerManager Instance { get; private set; }
         public SerializedDictionary<StCardInventory, StCardInventoryValue> Towers = new();
+        private Dictionary<StCardInventory, GameObject> _activeCards = new ();
 
         ScGridManager _gridManager => ScGridManager.Instance;
         
@@ -35,14 +34,28 @@ namespace TD.Runtime.Tower {
         }
 
         private void Start() {
-            _moneyText.text = "Money : " + Money;
+            UpdateMoneyText();
             CardContainer.SetActive(false);
+        }
+        
+        public void AddMoney(int amount) {
+            Money += amount;
+            UpdateMoneyText();
+        }
+        
+        public void RemoveMoney(int amount) {
+            Money -= amount;
+            UpdateMoneyText();
+        }
+
+        void UpdateMoneyText() {
+            _moneyText.text = "Money : " + Money;
         }
 
         public void ShowCards() {
-            _moneyText.text = "Money : " + Money;
+            UpdateMoneyText();
             _gridManager.ToggleCursorLock(false);
-            if (Towers.Count == 0) {
+            if (Towers.Count == 0 || Towers.All(tower => tower.Value.Count <= 0)) {
                 _gridManager.SelectedTile.CloseTowerSelection();
                 return;
             }
@@ -52,7 +65,8 @@ namespace TD.Runtime.Tower {
         
         public void HideCards() {
             _gridManager.ToggleCursorLock(true);
-            _moneyText.text = "Money : " + Money;
+            _gridManager.SelectedTile.ResetColor();
+            UpdateMoneyText();
             CardContainer.SetActive(false);
         }
         
@@ -75,24 +89,28 @@ namespace TD.Runtime.Tower {
                 Towers.Add(key, new StCardInventoryValue { Fragments = fragments, Count = 1});
             }
         }
-
-        public void UpdateCards() {
-            DestroyCards();
-            AddCards();
-        }
-
-        private void AddCards() {
+        void UpdateCards() {
             foreach (KeyValuePair<StCardInventory, StCardInventoryValue> tower in Towers) {
-                if (tower.Value.Count <= 0) continue;
-                GameObject card = Instantiate(CardPrefab, CardParent);
-                ScTowerCard cardComponent = card.GetComponent<ScTowerCard>();
-                cardComponent.SetTower(new StTowerCard{ Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
-            }
-        }
-
-        private void DestroyCards() {
-            foreach (Transform child in CardParent) {
-                Destroy(child.gameObject);
+                if (tower.Value.Count > 0) {
+                    // If the card already exists, update it
+                    if (_activeCards.TryGetValue(tower.Key, out GameObject existingCard)) {
+                        ScTowerCard cardComponent = existingCard.GetComponentInChildren<ScTowerCard>();
+                        cardComponent.SetTower(new StTowerCard { Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
+                        existingCard.SetActive(true); // Ensure it's visible
+                    } 
+                    // If the card does not exist, create it
+                    else {
+                        GameObject newCard = Instantiate(CardPrefab, CardParent);
+                        ScTowerCard cardComponent = newCard.GetComponentInChildren<ScTowerCard>();
+                        cardComponent.SetTower(new StTowerCard { Tower = tower.Key.Tower, Rarity = tower.Key.Rarity }, tower.Value.Count);
+                        _activeCards[tower.Key] = newCard;
+                    }
+                } else {
+                    // If the card exists and count is 0, hide it
+                    if (_activeCards.TryGetValue(tower.Key, out GameObject existingCard)) {
+                        existingCard.SetActive(false); // Hide the card instead of destroying
+                    }
+                }
             }
         }
     }

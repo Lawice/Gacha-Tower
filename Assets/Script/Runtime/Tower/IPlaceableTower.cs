@@ -7,7 +7,6 @@ namespace TD.Runtime.Tower {
         public string Name { get; set; }
         public TowerType Type { get; set; }
         public string Description { get; set; }
-        public Sprite Icon { get; set; }
         public int BaseCost { get; set; }
         
         public int Range { get; set; }

@@ -1,39 +1,39 @@
-﻿using TD.Runtime.Tools;
+﻿using TD.Runtime.Enemy;
+using TD.Runtime.Tower.Projectiles;
 using UnityEngine;
 
 namespace TD.Runtime.Tower {
-    public class ScArtemis: MonoBehaviour, ITower {
-        [field:SerializeField] public Vector2Int Position { get; set; }
-        [field: SerializeField] public int Range { get; set; } = 40;
-        [field: SerializeField] public int Cooldown { get; set; } = 2;
-        [field: SerializeField] public int Level { get; set; } = 1;
-        [field:SerializeField] public ScEnums.Rarity Rarity { get; set; }
-        [field:SerializeField] public SoTower Tower { get; set; }
-        public int MaxLevel { get; set; } = 10;
-        [field:SerializeField] public GameObject projectilePrefab;
+    public class ScArtemis : ScTower {
+        [Header("Projectile")]
+        [SerializeField] GameObject _projectilePrefab;
+        [SerializeField] int _baseDamage;
+        [SerializeField] float _projectileSpeed;
 
-        
-        public void Attack() {
-
-        }
-
-
-        public void Evolve(int amount = 1) {
-            if (Rarity + amount > ScEnums.Rarity.Heroic) {
-                Rarity = ScEnums.Rarity.Heroic;
+        private float _lastAttackTime;
+        private void Update() {
+            GetEnemiesInRange();
+            if (_enemiesInRange.Count <= 0 || !(Time.time >= _lastAttackTime + AttackCooldown)) {
+                return;
             }
-            Rarity += amount;
+            GameObject targetEnemy = null;
+            float maxDistance = 0;
+            foreach (Transform enemy in _enemiesInRange) {
+                ScEnemyMovement enemyMovement = enemy.GetComponent<ScEnemyMovement>();
+                if (enemyMovement == null || !(enemyMovement.TotalDistance > maxDistance)) {
+                    continue;
+                }
+                maxDistance = enemyMovement.TotalDistance;
+                targetEnemy = enemy.gameObject;
+            }
+            if (targetEnemy != null) {
+                Attack(targetEnemy.transform.position);
+            }
+            _lastAttackTime = Time.time;
         }
 
-        public void Upgrade(int levelAmount = 1) {
-            if(Level + levelAmount > MaxLevel) Level = MaxLevel;
-            Level += levelAmount;
-        }
-        public void Evolve() {
-            
-        }
-
-        public void Upgrade() {
+        public override void Attack(Vector3 target) {
+            GameObject projectile = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<ScProjectile>().Init(target, _projectileSpeed, _baseDamage);
             
         }
     }

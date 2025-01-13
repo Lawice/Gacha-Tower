@@ -1,6 +1,4 @@
-﻿using TD.Runtime.Tools;
-using TD.Runtime.Tower;
-using TD.Runtime.Tower.Inventory;
+﻿using TD.Runtime.Tower.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,6 +18,7 @@ namespace TD.Runtime.Gacha {
         
         private void Awake() {
             _animator = GetComponent<Animator>();
+            _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             _meshRenderer = GetComponent<MeshRenderer>();
             _childMeshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
         }
@@ -31,6 +30,7 @@ namespace TD.Runtime.Gacha {
 
         public void Show() {
             if(IsShowed) return;
+            _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
             _animator.SetTrigger(ShowTrigger);
             IsShowed = true;
             IsShowing = true;
@@ -56,13 +56,13 @@ namespace TD.Runtime.Gacha {
             Material[] materials2 = _childMeshRenderer.materials;
 
             if (materials.Length > 0) {
-                materials[0] = Resources.Load<Material>("Materials/Card/Girls/" + tower.Tower.Name);;
+                materials[0] = Resources.Load<Material>("Materials/Card/Girls/" + tower.Tower.Name);
                 _meshRenderer.materials = materials;
 
             }
             
             if (materials2.Length > 0) {
-                materials2[0] = Resources.Load<Material>("Materials/Card/Rarity/" + tower.Rarity);;
+                materials2[0] = Resources.Load<Material>("Materials/Card/Rarity/" + tower.Rarity);
                 _childMeshRenderer.materials = materials2;
             }
         

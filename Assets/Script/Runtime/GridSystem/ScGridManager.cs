@@ -1,8 +1,9 @@
-using System.Collections.Generic;
 using TD.Runtime.InputSystem;
+using TD.Runtime.Tools;
+using TD.Runtime.Tower;
+using TD.Runtime.Tower.View;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 namespace TD.Runtime.GridSystem {
@@ -11,17 +12,15 @@ namespace TD.Runtime.GridSystem {
         
         [SerializeField] Transform _ground;
         public int TileSize = 1;
-        ScGridTile[,] _grid;
+        public ScGridTile[,] Grid;
 
         public Vector2Int GridSize;
         private ScGridCursor _cursor;
         public ScGridTile SelectedTile;
+        public ScTower SelectedTower;
         
-        [SerializeField] GameObject _previewTowerRange;
         private GameObject _previewTower;
-
-        List<ScGridTile> _pathTiles = new(); //ScGridTile
-        
+        [SerializeField]GameObject _previewTowerPrefab;
         
         private void Awake() {
             if (Instance == null) {
@@ -30,9 +29,6 @@ namespace TD.Runtime.GridSystem {
             else {
                 Destroy(this);
             }
-        }
-
-        private void Start() {
             StartGrid();
             _cursor = GetComponentInChildren<ScGridCursor>();
             
@@ -53,10 +49,10 @@ namespace TD.Runtime.GridSystem {
                 maxY = Mathf.Max(maxY, tile.TilePosition.y);
             }
             GridSize = new Vector2Int(maxX + 1, maxY + 1);
-            Debug.Log("Grid Size: " + GridSize);
-            _grid = new ScGridTile[GridSize.x, GridSize.y];
+            //Debug.Log("Grid Size: " + GridSize);
+            Grid = new ScGridTile[GridSize.x, GridSize.y];
             foreach (ScGridTile tile in tiles) {
-                _grid[tile.TilePosition.x, tile.TilePosition.y] = tile;
+                Grid[tile.TilePosition.x, tile.TilePosition.y] = tile;
             }
         }
         
@@ -77,12 +73,13 @@ namespace TD.Runtime.GridSystem {
         }
 
         public ScGridTile GetTile(int x, int y) {
-            Debug.Log("Getting tile: " + x + ", " + y);
+            //Debug.Log("Getting tile: " + x + ", " + y);
             if (OutOfBounds(new Vector2Int(x,y))) return null;
-            Debug.Log("Got tile: " + _grid[x, y].TilePosition);
-            return _grid[x, y];
+            // Debug.Log("Got tile: " + _grid[x, y].TilePosition);
+            return Grid[x, y];
         }
 
+        public bool OutOfBounds(int x, int y)=>OutOfBounds(new Vector2Int(x,y));
         public bool OutOfBounds(Vector2Int position) => position.x < 0 || position.y < 0 || position.x >= GridSize.x || position.y >= GridSize.y;
 
         public void ToggleCursorLock(bool lockCursor) {
@@ -94,20 +91,26 @@ namespace TD.Runtime.GridSystem {
         
         public void SetPreview(Vector2Int position, int range) {
             if (_previewTower == null) {
-                _previewTower = Instantiate(_previewTowerRange);
+                _previewTower = Instantiate(_previewTowerPrefab);
             }
-            else {
-                Debug.Log(_previewTower);
-            }
+            Debug.Log(position);
+            _previewTower.transform.position = new Vector3(position.x+0.5f, 0.8f, position.y+0.5f);
             _previewTower.SetActive(true);
-            _previewTower.transform.position = new Vector3(position.x + 0.5f, 0.5f, position.y + 0.5f);
-            _previewTower.transform.localScale = new Vector3((range+0.5f)*2, 0.1f, (range+0.5f)*2);
+            ScFieldOfView fov = _previewTower.GetComponent<ScFieldOfView>();
+            fov.ViewRadius = range;
+            fov.Showing = true;
         }
         
         public void ClearPreview() {
             if (_previewTower != null) {
                 _previewTower.SetActive(false);
             }
+        }
+        
+        public bool TryGetTowerTile() {
+            if(SelectedTower == null)  return false;
+            SelectedTile = SelectedTower.gameObject.TryGetComponentInParent(out ScGridTile tile) ? tile : null;
+            return SelectedTile != null;
         }
     }
 }

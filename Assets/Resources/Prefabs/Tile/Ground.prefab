@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188041565266141415}
   - component: {fileID: 5239759071947049778}
-  - component: {fileID: -3414499431221036759}
+  - component: {fileID: 8840391351041195407}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -134,11 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TilePosition: {x: 0, y: 0}
   IsTowerPlaceable: 1
-  TowerOnTile: {fileID: 0}
-
   IsTowerPlaced: 0
-
---- !u!65 &-3414499431221036759
+--- !u!65 &8840391351041195407
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
