@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TD.Runtime.Tools;
 using TD.Runtime.Tower.View;
 using UnityEngine;

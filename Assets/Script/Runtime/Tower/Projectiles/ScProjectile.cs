@@ -1,5 +1,4 @@
-﻿using System;
-using TD.Runtime.Enemy;
+﻿using TD.Runtime.Enemy;
 using UnityEngine;
 
 namespace TD.Runtime.Tower.Projectiles {

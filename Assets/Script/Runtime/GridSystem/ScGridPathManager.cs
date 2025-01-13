@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TD.Runtime.GridSystem {
     public class ScGridPathManager :MonoBehaviour {
@@ -32,6 +29,7 @@ namespace TD.Runtime.GridSystem {
             ScGridTile startTile = null;
             for (int x = 0; x < _gridManager.Grid.GetLength(0); x++) {
                 for (int y = 0; y < _gridManager.Grid.GetLength(1); y++) {
+                    Debug.Log("x : " + x + ", y : " + y + ", tile : " + _gridManager.Grid[x, y].gameObject.name);
                     ScGridPath pathComponent = _gridManager.Grid[x, y].GetComponent<ScGridPath>();
                     if (pathComponent == null || !pathComponent.IsStart) continue;
                     StartPath = pathComponent;

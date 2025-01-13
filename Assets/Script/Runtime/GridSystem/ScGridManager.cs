@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using TD.Runtime.InputSystem;
 using TD.Runtime.Tools;
 using TD.Runtime.Tower;
 using TD.Runtime.Tower.View;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 namespace TD.Runtime.GridSystem {
@@ -31,10 +29,6 @@ namespace TD.Runtime.GridSystem {
             else {
                 Destroy(this);
             }
-            
-        }
-
-        private void OnEnable() {
             StartGrid();
             _cursor = GetComponentInChildren<ScGridCursor>();
             

@@ -13,12 +13,5 @@
             Melee,
             Support
         }
-        
-        public enum EnemyType {
-            Small,
-            Medium,
-            Big,
-            Boss
-        }
     }
 }

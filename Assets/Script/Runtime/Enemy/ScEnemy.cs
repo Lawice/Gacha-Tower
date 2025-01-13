@@ -1,5 +1,4 @@
-﻿using System;
-using TD.Runtime.Tower.Inventory;
+﻿using TD.Runtime.Tower.Inventory;
 using UnityEngine;
 using UnityEngine.Pool;
 

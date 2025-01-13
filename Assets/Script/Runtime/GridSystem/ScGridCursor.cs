@@ -1,9 +1,6 @@
-using System;
 using TD.Runtime.Tower;
 using UnityEngine;
 using UnityEngine.UI;
-
-using static TD.Runtime.Tools.ScTools;
 
 namespace TD.Runtime.GridSystem {
     public class ScGridCursor : MonoBehaviour {

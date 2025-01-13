@@ -1,6 +1,4 @@
-﻿using System;
-using TD.Runtime.Tools;
-using TD.Runtime.Tower.Projectiles;
+﻿using TD.Runtime.Tower.Projectiles;
 using UnityEngine;
 
 namespace TD.Runtime.Tower {

@@ -1,11 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace TD.Runtime.Player {
     public class ScPlayerHealth : MonoBehaviour {
-        public int Health = 100;
+        public int Health = 250;
         [SerializeField] GameObject _gameOverPanel;
         [SerializeField] TextMeshProUGUI _healthText;
         
@@ -14,6 +12,10 @@ namespace TD.Runtime.Player {
         private void Awake() {
             if( Instance == null ) Instance = this;
             else Destroy(this);
+        }
+
+        void Start() {
+            _healthText.text = "♥ : "+Health;
         }
         
         public void TakeDamage(int damage) {

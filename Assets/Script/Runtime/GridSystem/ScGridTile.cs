@@ -1,8 +1,5 @@
-﻿using System;
-using TD.Runtime.InputSystem;
-using TD.Player;
+﻿using TD.Runtime.InputSystem;
 using UnityEngine;
-
 using TD.Runtime.Tower;
 using TD.Runtime.Tower.Inventory;
 

@@ -1,6 +1,4 @@
-﻿using TD.Runtime.Tools;
-using TD.Runtime.Tower;
-using TD.Runtime.Tower.Inventory;
+﻿using TD.Runtime.Tower.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

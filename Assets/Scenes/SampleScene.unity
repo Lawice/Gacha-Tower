@@ -7378,7 +7378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.29380047, g: 0.0027716567, b: 0.0027716567, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13415,7 +13415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28ebe43a30b455ca565f518754f1b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 250
   _gameOverPanel: {fileID: 527380464}
   _healthText: {fileID: 1111159906}
 --- !u!1001 &980158524
@@ -18749,13 +18749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Towers:
-    _serializedList:
-    - Key:
-        Tower: {fileID: 11400000, guid: 596ad892b2232da4a8003f17a3587201, type: 2}
-        Rarity: 1
-      Value:
-        Count: 1
-        Fragments: 0
+    _serializedList: []
   Money: 500
   CardPrefab: {fileID: 8592907807267516730, guid: c50a65ce5a6ebd4469aedab0b32bb0a8, type: 3}
   CardParent: {fileID: 1781125667}
