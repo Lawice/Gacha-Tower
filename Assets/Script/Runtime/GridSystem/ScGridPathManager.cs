@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TD.Runtime.GridSystem {
@@ -20,16 +21,20 @@ namespace TD.Runtime.GridSystem {
                 Destroy(this);
             }
         }
-
-        private void Start() {
+        
+        private IEnumerator LateStart() {
+            yield return null;
             Path = FindPath();
+        }
+        
+        private void Start() {
+            StartCoroutine(LateStart());
         }
 
         private List<ScGridTile> FindPath() {
             ScGridTile startTile = null;
             for (int x = 0; x < _gridManager.Grid.GetLength(0); x++) {
                 for (int y = 0; y < _gridManager.Grid.GetLength(1); y++) {
-                    Debug.Log("x : " + x + ", y : " + y + ", tile : " + _gridManager.Grid[x, y].gameObject.name);
                     ScGridPath pathComponent = _gridManager.Grid[x, y].GetComponent<ScGridPath>();
                     if (pathComponent == null || !pathComponent.IsStart) continue;
                     StartPath = pathComponent;

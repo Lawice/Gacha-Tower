@@ -68,14 +68,14 @@ namespace TD.Runtime.InputSystem{
         
         [Serializable]
         public struct InputEvent {
-            public UnityEvent Started;
-            public UnityEvent Canceled;
-            public UnityEvent Performed;
+            public Action Started;
+            public Action Canceled;
+            public Action Performed;
 
-            public InputEvent(UnityEvent started, UnityEvent canceled, UnityEvent performed) {
-                Started = started ?? new UnityEvent();
-                Canceled = canceled ?? new UnityEvent();
-                Performed = performed ?? new UnityEvent();
+            public InputEvent(Action started, Action canceled, Action performed) {
+                Started = started ?? (() => { });
+                Canceled = canceled ?? (() => { });
+                Performed = performed ?? (() => { });
             }
         }
     }

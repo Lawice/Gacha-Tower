@@ -14,7 +14,6 @@ namespace TD.Player {
         }
 
         void TryInteractObject(Vector2Int position) {
-            Debug.Log(position);
             HideTowerUpgrade();
             if (!_gridManager.TryGetTile(position, out ScGridTile tile)) {
                 if (_gridManager.SelectedTower != null) {

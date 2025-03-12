@@ -14,7 +14,7 @@ namespace TD.Runtime.GridSystem {
 
         private void Start() {
             transform.localScale = new Vector3(_gridManager.TileSize, _gridManager.TileSize, _gridManager.TileSize);
-            _gridPlane = new Plane(Vector3.up, Vector3.zero);
+            _gridPlane = new Plane(Vector3.up,  new Vector3(0, 0.75f, 0));
             _cursorImage = GetComponent<Image>();
         }
 
@@ -23,30 +23,21 @@ namespace TD.Runtime.GridSystem {
 
             Debug.DrawRay(ray.origin, ray.direction * 100f, Color.blue);
 
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100f)) {
-                ScGridTile tile = hit.collider.GetComponent<ScGridTile>();
-                ScTower tower = hit.collider.GetComponent<ScTower>();
+            if (_gridPlane.Raycast(ray, out float distance)) {
+                Debug.Log($"Hit Distance: {distance}");
+                Vector3 hit = ray.GetPoint(distance);
+                Debug.Log("hit :" + hit);
 
-                if (tile != null) {
-                    CursorPosition = tile.TilePosition;
-                    transform.position = new Vector3(
-                        CursorPosition.x + _gridManager.TileSize / 2f,
-                        transform.position.y,
-                        CursorPosition.y + _gridManager.TileSize / 2f
-                    );
-                } else if (tower != null) {
-                    _gridManager.SelectedTower = tower;
-                    CursorPosition = new Vector2Int(-1, -1);
-                } else {
-                    CursorPosition = new Vector2Int(-1, -1);
+                CursorPosition = new() {
+                    x = Mathf.FloorToInt(hit.x / _gridManager.TileSize),
+                    y = Mathf.FloorToInt(hit.z / _gridManager.TileSize),
+                };
+                if (!_gridManager.OutOfBounds(CursorPosition)) {
+                    transform.position = new Vector3( CursorPosition.x + _gridManager.TileSize / 2f,  transform.position.y, CursorPosition.y + _gridManager.TileSize / 2f);
                 }
-            } else {
-                CursorPosition = new Vector2Int(-1, -1);
+
+                _cursorImage.enabled = !_gridManager.OutOfBounds(CursorPosition);
             }
-            
-            _cursorImage.enabled = !_gridManager.OutOfBounds(CursorPosition);
         }
-        
     }
 }

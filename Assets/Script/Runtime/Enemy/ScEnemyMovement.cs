@@ -24,7 +24,6 @@ namespace TD.Runtime.Enemy {
         }
 
         IEnumerator LateStart() {
-            
             yield return null;
             _agent.speed = _enemy.Enemy.Speed;
             foreach (ScGridTile tilePath in ScGridPathManager.Instance.Path) {

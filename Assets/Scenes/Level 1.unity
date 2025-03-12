@@ -10042,7 +10042,6 @@ Transform:
   - {fileID: 1193917001}
   - {fileID: 1421538952}
   - {fileID: 1329354839}
-  - {fileID: 1890459841}
   - {fileID: 975766177}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18749,7 +18748,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Towers:
-    _serializedList: []
+    _serializedList:
+    - Key:
+        Tower: {fileID: 0}
+        Rarity: 0
+      Value:
+        Count: 0
+        Fragments: 0
+    - Key:
+        Tower: {fileID: 11400000, guid: 59967df22d7159a41ad1d6313ba8ce65, type: 2}
+        Rarity: 0
+      Value:
+        Count: 0
+        Fragments: 0
   Money: 500
   CardPrefab: {fileID: 8592907807267516730, guid: c50a65ce5a6ebd4469aedab0b32bb0a8, type: 3}
   CardParent: {fileID: 1781125667}
@@ -26375,7 +26386,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2077598278}
-  m_Father: {fileID: 733913733}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1890459842
 MonoBehaviour:
@@ -28949,6 +28960,7 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1890459841}
   - {fileID: 733913733}
   - {fileID: 326741364}
   - {fileID: 830252717}

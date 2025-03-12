@@ -7,6 +7,7 @@ using UnityEngine;
 namespace TD.Runtime.Gacha {
     public class ScGachaCardsManager : MonoBehaviour {
         private static readonly int Show = Animator.StringToHash("Show");
+        private static readonly int Reset = Animator.StringToHash("Reset");
         [SerializeField] List<ScGachaCard> _cards;
         [SerializeField] private Animator _cardParentAnimator;
 
@@ -14,9 +15,11 @@ namespace TD.Runtime.Gacha {
         
         public bool CanPull = true;
         public bool IsAllCardShowed;
-        public bool IsCardShowed;
+        public bool IsOneCardShowed;
         public bool IsShowing;
         public bool IsUnShowing;
+
+        public bool IsReseting;
 
         public void SetAutoShow(bool toggle) {
             IsAutoShow = toggle;
@@ -28,7 +31,7 @@ namespace TD.Runtime.Gacha {
 
         private void Update() {
             IsAllCardShowed = _cards.All(card => card.IsShowed);
-            IsCardShowed = _cards.Any(card => card.IsShowed);
+            IsOneCardShowed = _cards.Any(card => card.IsShowed);
             IsShowing = _cards.Any(card => card.IsShowing);
             IsUnShowing = _cards.Any(card => card.IsUnShowing);
             
@@ -48,7 +51,7 @@ namespace TD.Runtime.Gacha {
         }
         
         public IEnumerator HideCards() {
-            if (!IsAllCardShowed) yield break;
+            if (!IsAllCardShowed || IsReseting) yield break;
 
             foreach (ScGachaCard card in _cards) {
                 card.IsShowed = false;
@@ -63,8 +66,18 @@ namespace TD.Runtime.Gacha {
         }
         
         public void ShowCards() {
+            Debug.Log("ShowCards");
             _cardParentAnimator.SetTrigger(Show);
+            IsReseting = false;
             CanPull = false;
+        }
+        public void ResetCard() {
+            _cardParentAnimator.SetTrigger(Reset);
+            IsReseting = true;
+            foreach (ScGachaCard card in _cards) {
+                card.IsShowed = false;
+                card.UnShow();
+            }
         }
         
         IEnumerator ShowAllCards() {

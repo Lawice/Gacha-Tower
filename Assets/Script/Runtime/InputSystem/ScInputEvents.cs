@@ -9,17 +9,17 @@ namespace TD.Runtime.InputSystem {
         }
         
         void SetUpEvents() {
-            _inputManager.OnMoveEvent.Performed.AddListener(OnMoveStart);
-            _inputManager.OnMoveEvent.Canceled.AddListener(OnMoveCancel);
+            _inputManager.OnMoveEvent.Performed += OnMoveStart;
+            _inputManager.OnMoveEvent.Canceled += OnMoveCancel;
             
-            _inputManager.OnViewEvent.Performed.AddListener(OnViewStart);
-            _inputManager.OnViewEvent.Canceled.AddListener(OnViewCancel);
+            _inputManager.OnViewEvent.Performed += OnViewStart;
+            _inputManager.OnViewEvent.Canceled += OnViewCancel;
             
-            _inputManager.OnInteractEvent.Performed.AddListener(OnInteractStart);
-            _inputManager.OnInteractEvent.Canceled.AddListener(OnInteractStop);
+            _inputManager.OnInteractEvent.Performed += OnInteractStart;
+            _inputManager.OnInteractEvent.Canceled += OnInteractStop;
             
-            _inputManager.OnEscapeEvent.Performed.AddListener(OnEscapeStart);
-            _inputManager.OnEscapeEvent.Canceled.AddListener(OnEscapeStop);
+            _inputManager.OnEscapeEvent.Performed += OnEscapeStart;
+            _inputManager.OnEscapeEvent.Canceled += OnEscapeStop;
         }
         
         

@@ -1,3 +1,4 @@
+using System;
 using TD.Runtime.InputSystem;
 using TD.Runtime.Tools;
 using TD.Runtime.Tower;
@@ -29,6 +30,9 @@ namespace TD.Runtime.GridSystem {
             else {
                 Destroy(this);
             }
+        }
+
+        private void Start() {
             StartGrid();
             _cursor = GetComponentInChildren<ScGridCursor>();
             
@@ -49,7 +53,6 @@ namespace TD.Runtime.GridSystem {
                 maxY = Mathf.Max(maxY, tile.TilePosition.y);
             }
             GridSize = new Vector2Int(maxX + 1, maxY + 1);
-            //Debug.Log("Grid Size: " + GridSize);
             Grid = new ScGridTile[GridSize.x, GridSize.y];
             foreach (ScGridTile tile in tiles) {
                 Grid[tile.TilePosition.x, tile.TilePosition.y] = tile;
@@ -73,9 +76,7 @@ namespace TD.Runtime.GridSystem {
         }
 
         public ScGridTile GetTile(int x, int y) {
-            //Debug.Log("Getting tile: " + x + ", " + y);
             if (OutOfBounds(new Vector2Int(x,y))) return null;
-            // Debug.Log("Got tile: " + _grid[x, y].TilePosition);
             return Grid[x, y];
         }
 
